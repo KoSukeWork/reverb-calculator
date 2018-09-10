@@ -1,6 +1,8 @@
 # reverb-calculator
-Calculate delay times for reverb and delays efx by BPM
+Calculate delay times for reverb and delays efx by BPM.
 
+## Usage
+```
 Usage of ./delaycalc:
   -bars int
     	The amount of bars to display (default 4)
@@ -8,9 +10,9 @@ Usage of ./delaycalc:
     	Beats per Minute (default 120)
   -depth int
     	The lowest divider of one note to show. (default 11)
-
-Example
-
+```
+## Examples
+```
 $ ./delaycalc -bpm 120 -bars 1 -depth 5
  Tempo:     120.00 BPM
    1/1:    2000.00 ms      2.000 s
@@ -29,3 +31,4 @@ $ ./delaycalc -bpm 120 -bars 1 -depth 5
    3/1:    6000.00 ms      6.000 s
    2/1:    4000.00 ms      4.000 s
    1/1:    2000.00 ms      2.000 s
+```
