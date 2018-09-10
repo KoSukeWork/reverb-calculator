@@ -33,8 +33,7 @@ func initFlags() {
 }
 
 func printHeader(bpm float64) {
-    fmt.Printf("%7v %10v\n", "BPM:", bpm)
-    fmt.Println("==================================")
+    fmt.Printf("%+7v %10.2f bpm\n", "Tempo:", bpm)
 }
 
 func printNotes(whole float64, depth int, upperBar int) {
