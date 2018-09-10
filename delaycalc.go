@@ -1,26 +1,43 @@
 package main
+
 import (
 	"fmt"
 	"math"
+	"flag"
 )
 
-const maxDepth =  11
-const upperBar = 4
+const defaultdepth =  11
+const defaultBars = 4
 const defaultBpm = 120
 
+var bpm float64
+var depth int
+var bars int
+
 func main() {
-	bpm := float64(defaultBpm)
+
+    initFlags()
 	quarter := float64(60 / bpm) 
 	whole := float64(4 * quarter)
-	wholeMs := whole * 1000	
-	printNotes(wholeMs, maxDepth)
+	wholeMs := whole * 1000
+
+    printHeader(bpm)
+	printNotes(wholeMs, depth, bars)
 }
 
-func Round(x, unit float64) float64 { 
-    return math.Round(x/unit) * unit 
-} 
+func initFlags() {
+    flag.Float64Var(&bpm, "bpm", 120, "Beats per Minute")
+    flag.IntVar(&depth, "depth", 11, "The lowest divider of one note to show.")
+    flag.IntVar(&bars, "bars", 4, "The amount of bars to display")
+    flag.Parse()
+}
 
-func printNotes(whole float64, depth int) {
+func printHeader(bpm float64) {
+    fmt.Printf("%7v %10v\n", "BPM:", bpm)
+    fmt.Println("==================================")
+}
+
+func printNotes(whole float64, depth int, upperBar int) {
 	subBar := 1
 	stepValue := whole
 	currentBar := upperBar
@@ -36,11 +53,15 @@ func printNotes(whole float64, depth int) {
 			stepValue = whole * float64(currentBar)
 		}
 		
-		barPointer := fmt.Sprintf("%v/%v:",currentBar, subBar)
+		barPosition := fmt.Sprintf("%v/%v:",currentBar, subBar)
 		stepValueMs := Round(stepValue, 0.01)
 		stepValueSec := Round((stepValueMs / 1000), 0.001)
-		fmt.Printf("%+7v %10.2f ms %10.3f s\n", barPointer, stepValueMs, stepValueSec)
-		currentBar = upperBar - step 
+		currentBar = upperBar - step
+
+		fmt.Printf("%+7v %10.2f ms %10.3f s \n", barPosition, stepValueMs, stepValueSec)
 	}
 }
 
+func Round(x, unit float64) float64 {
+    return math.Round(x/unit) * unit
+}
