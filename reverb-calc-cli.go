@@ -9,7 +9,7 @@ import (
 
 const defaultBpm = 120
 const defaultBars = 4
-const defaultResolution =  11
+const defaultResolution =  10
 
 // Params
 var bpm float64

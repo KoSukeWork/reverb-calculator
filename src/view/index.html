@@ -1,0 +1,39 @@
+<html>
+<head>
+    <title>Reverb Calculator</title>
+</head>
+<body>
+    <h1>reverb-calculator</h1>
+    <form action="/" method="post">
+        bpm: <input type="text" name="bpm" value="{{ .Bpm }}">
+        bars: <input type="text" name="bars" value="{{ .Bars }}">
+        resolution: <input type="text" name="resolution" value="{{ .Resolution }}">
+        <input type="submit" value="calculate">
+    </form>
+
+    <div>
+        {{ range .Errors }}
+            <p>{{ . }}</p>
+        {{ end }}
+    </div>
+
+    <table>
+        <tr>
+            <th>Step</th>
+            <th>Milliseconds</th>
+            <th>Seconds</th>
+        </tr>
+
+        {{range .StepData}}
+        <tr>
+            <td>{{ .BarPosition }}</td>
+            <td>{{ printf "%.2f" .StepValueMs }} ms</td>
+            <td>{{ printf "%.3f" .StepValueSec }} s</td>
+        </tr>
+        {{end}}
+
+    </table>
+
+
+</body>
+</html>
