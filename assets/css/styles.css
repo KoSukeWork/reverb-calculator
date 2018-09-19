@@ -1,0 +1,55 @@
+body {
+    background-color: white;
+    margin: 16px;
+}
+
+html, body {
+    height: 100%;
+    padding: 0;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 16px;
+}
+
+h1.app-header {
+    margin-bottom: 0px;
+    font-size: 24px;
+}
+hr.app-header {
+   margin-bottom: 16px;
+}
+
+#errors {
+	float: left;
+	margin-left: 30px;
+}
+#errors p {
+    color: red;
+    margin: 0px;
+    font-size: 16px;
+    margin: 5px 0px 5px 0px;
+}
+
+#app-data {
+	float: left;
+}
+
+#app-data table th, #app-data table td {
+}
+
+#app-data table .position {
+    text-align: left;
+}
+
+#app-data table .val_ms {
+    text-align: right;
+    padding: 2px 30px;
+}
+
+#app-data table .val_sec {
+    text-align: right;
+    padding-left: 15px;
+}
+
+.cleaner {
+	clear: both;
+}

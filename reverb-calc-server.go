@@ -29,6 +29,10 @@ type TemplateData struct {
 
 func main() {
     http.HandleFunc("/", indexController) // set router
+    http.Handle("/css/", http.StripPrefix("/css/", http.FileServer(http.Dir("./assets/css"))))
+    http.Handle("/js/", http.StripPrefix("/js/", http.FileServer(http.Dir("./assets/js"))))
+
+
     err := http.ListenAndServe(":9090", nil) // set listen port
     if err != nil {
         log.Fatal("ListenAndServe: ", err)
