@@ -28,9 +28,10 @@ type TemplateData struct {
 }
 
 func main() {
-    http.HandleFunc("/", indexController) // set router
-    http.Handle("/css/", http.StripPrefix("/css/", http.FileServer(http.Dir("./assets/css"))))
-    http.Handle("/js/", http.StripPrefix("/js/", http.FileServer(http.Dir("./assets/js"))))
+	http.HandleFunc("/", indexController) // set router
+    http.HandleFunc("/reverb-calc", indexController) // set router
+    http.Handle("/reverb-calc/css/", http.StripPrefix("/reverb-calc/css/", http.FileServer(http.Dir("./assets/css"))))
+    http.Handle("/reverb-calc/js/", http.StripPrefix("/reverb-calc/js/", http.FileServer(http.Dir("./assets/js"))))
 
 
     err := http.ListenAndServe(":9090", nil) // set listen port
