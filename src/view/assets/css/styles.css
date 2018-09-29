@@ -14,14 +14,16 @@ h1.app-header {
     margin-bottom: 0px;
     font-size: 24px;
 }
+
 hr.app-header {
-   margin-bottom: 16px;
+    margin-bottom: 16px;
 }
 
 #errors {
-	float: left;
-	margin-left: 30px;
+    float: left;
+    margin-left: 30px;
 }
+
 #errors p {
     color: red;
     margin: 0px;
@@ -30,10 +32,7 @@ hr.app-header {
 }
 
 #app-data {
-	float: left;
-}
-
-#app-data table th, #app-data table td {
+    float: left;
 }
 
 #app-data table .position {
@@ -51,5 +50,5 @@ hr.app-header {
 }
 
 .cleaner {
-	clear: both;
+    clear: both;
 }

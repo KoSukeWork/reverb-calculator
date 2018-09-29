@@ -1,8 +1,8 @@
-package structs
+package calculator
 
 type StepData struct {
-	BarPosition string
-	StepValueMs float64
+	BarPosition  string
+	StepValueMs  float64
 	StepValueSec float64
 }
 

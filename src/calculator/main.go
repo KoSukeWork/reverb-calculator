@@ -3,11 +3,28 @@ package calculator
 import (
 	"fmt"
 	"math"
-	"structs"
 )
 
-func GetStepDataByBpm(bpm float64, bars int, resolution int) structs.StepDataList {
-	var stepDataList structs.StepDataList
+type calculator struct {
+	bpm        float64
+	bars       int
+	resolution int
+	data       StepDataList
+}
+
+func NewCalculator() *calculator {
+	c := new(calculator)
+	c.SetBpm(DefaultBpm)
+	c.SetBars(DefaultBars)
+	c.SetResolution(DefaultResolution)
+	return c
+}
+
+func (c *calculator) Calculate() {
+	bpm := c.Bpm()
+	bars := c.Bars()
+	resolution := c.Resolution()
+	data := c.Data()
 
 	quarter := float64(60 / bpm)
 	whole := float64(4 * quarter)
@@ -15,7 +32,7 @@ func GetStepDataByBpm(bpm float64, bars int, resolution int) structs.StepDataLis
 
 	subBar := 1
 	stepValue := wholeMs
-	currentBar := bars
+	currentBar := c.bars
 
 	for step := 1; step < (resolution + bars); step++ {
 		if currentBar <= 1 {
@@ -28,16 +45,53 @@ func GetStepDataByBpm(bpm float64, bars int, resolution int) structs.StepDataLis
 		}
 
 		barPosition := fmt.Sprintf("%v/%v", currentBar, subBar)
-		stepValueMs := Round(stepValue, 0.01)
-		stepValueSec := Round((stepValueMs / 1000), 0.001)
+		stepValueMs := c.round(stepValue, 0.01)
+		stepValueSec := c.round((stepValueMs / 1000), 0.001)
 		currentBar = bars - step
 
-		stepDataList = append(stepDataList, structs.StepData{barPosition, stepValueMs, stepValueSec})
+		data = append(data, StepData{
+			barPosition,
+			stepValueMs,
+			stepValueSec,
+		})
 	}
 
-	return stepDataList
+	c.setData(data)
 }
 
-func Round(x, unit float64) float64 {
+func (c *calculator) round(x, unit float64) float64 {
 	return math.Round(x/unit) * unit
+}
+
+// Getter/Setters
+func (c *calculator) Bpm() float64 {
+	return c.bpm
+}
+
+func (c *calculator) SetBpm(bpm float64) {
+	c.bpm = bpm
+}
+
+func (c *calculator) Bars() int {
+	return c.bars
+}
+
+func (c *calculator) SetBars(bars int) {
+	c.bars = bars
+}
+
+func (c *calculator) Resolution() int {
+	return c.resolution
+}
+
+func (c *calculator) SetResolution(resolution int) {
+	c.resolution = resolution
+}
+
+func (c *calculator) Data() StepDataList {
+	return c.data
+}
+
+func (c *calculator) setData(data StepDataList) {
+	c.data = data
 }
