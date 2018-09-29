@@ -13,28 +13,22 @@ import (
 const defaultBpm = 120
 const defaultBars = 4
 const defaultResolution =  10
-
 const maxBpm = 300
 const maxBars = 30
 const maxResolution =  50
-
-// Params
-type TemplateData struct {
-    Bpm float64
-    Bars int
-    Resolution int
-    Errors []string
-    StepData structs.StepDataList
-}
+const serverPort = 9090
 
 func main() {
+	serverListenConfig := fmt.Sprintf(":%d", serverPort)
+
 	http.HandleFunc("/", indexController) // set router
     http.HandleFunc("/reverb-calc", indexController) // set router
     http.Handle("/reverb-calc/css/", http.StripPrefix("/reverb-calc/css/", http.FileServer(http.Dir("./assets/css"))))
     http.Handle("/reverb-calc/js/", http.StripPrefix("/reverb-calc/js/", http.FileServer(http.Dir("./assets/js"))))
 
+	fmt.Printf("starting Server at %v\n",serverListenConfig)
 
-    err := http.ListenAndServe(":9090", nil) // set listen port
+    err := http.ListenAndServe(serverListenConfig, nil)
     if err != nil {
         log.Fatal("ListenAndServe: ", err)
     }
@@ -46,7 +40,7 @@ func indexController(w http.ResponseWriter, r *http.Request) {
     t, _ := template.ParseFiles("src/view/index.html")
 
     // set defaults
-    PageData := TemplateData {
+    PageData := structs.IndexPageData {
         Bpm: defaultBpm,
         Bars: defaultBars,
         Resolution: defaultResolution,
