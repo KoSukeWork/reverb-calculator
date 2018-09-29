@@ -1,9 +1,11 @@
 # reverb-calculator
 Calculate delay times for reverb and delays efx by BPM.
 
-## Usage
+## Cli
+
+### Usage
 ```
-Usage of ./reverb-calc:
+Usage of ./reverb-calc-cli:
   -bars int
     	The amount of bars to display (default 4)
   -bpm float
@@ -11,9 +13,9 @@ Usage of ./reverb-calc:
   -depth int
     	The lowest divider of one note to show. (default 11)
 ```
-## Examples
+### Examples
 ```
-$ ./reverb-calc -bpm 120 -bars 1 -depth 5
+$ ./reverb-calc-cli -bpm 120 -bars 1 -depth 5
  Tempo:     120.00 BPM
    1/1:    2000.00 ms      2.000 s
    1/2:    1000.00 ms      1.000 s
@@ -21,7 +23,7 @@ $ ./reverb-calc -bpm 120 -bars 1 -depth 5
    1/8:     250.00 ms      0.250 s
   1/16:     125.00 ms      0.125 s
 
-./reverb-calc -bpm 120 -bars 8 -depth 1
+./reverb-calc-cli -bpm 120 -bars 8 -depth 1
  Tempo:     120.00 BPM
    8/1:   16000.00 ms     16.000 s
    7/1:   14000.00 ms     14.000 s
@@ -31,4 +33,25 @@ $ ./reverb-calc -bpm 120 -bars 1 -depth 5
    3/1:    6000.00 ms      6.000 s
    2/1:    4000.00 ms      4.000 s
    1/1:    2000.00 ms      2.000 s
+```
+
+## Webapp
+
+### Usage
+```
+$ ./reverb-calc-app.go 
+starting Server at :9090
+
+$ ./reverb-calc-app.go -port 8080
+starting Server at :8080
+```
+
+
+### Examples 
+```
+Usage of ./reverb-calc-app:
+  -port int
+        The Port the server should listen. (default 9090)
+
+
 ```

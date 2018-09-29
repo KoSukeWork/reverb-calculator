@@ -1,0 +1,47 @@
+<html>
+<head>
+    <title>Reverb Calculator</title>
+    <link rel="stylesheet" href="/reverb-calc/css/styles.css?v=1.0">
+    <script type="text/javascript" src="/reverb-calc/js/jquery-3.3.1.min.js"></script>
+    <script type="text/javascript" src="/reverb-calc/js/main.js"></script>
+</head>
+<body>
+    <h1 class="app-header">reverb-calculator</h1>
+    <hr class="app-header"/>
+
+    <div class="wrapper">
+        <form id="app-input" method="post">
+            BPM: <input type="text" name="bpm" value="{{ .Bpm }}">
+            Bars: <input type="text" name="bars" value="{{ .Bars }}">
+            Resolution: <input type="text" name="resolution" value="{{ .Resolution }}">
+            <input type="submit" value="calculate" />
+            <input class="reset_button" type="button" value="clear" />
+        </form>
+
+        <div id="app-data">
+            <table>
+                <tr>
+                    <th class="position">Step</th>
+                    <th class="val_ms">Milliseconds</th>
+                    <th class="val_sec">Seconds</th>
+                </tr>
+                {{range .StepData}}
+                <tr>
+                    <td class="position">{{ .BarPosition }}</td>
+                    <td class="val_ms">{{ printf "%.2f" .StepValueMs }} ms</td>
+                    <td class="val_sec">{{ printf "%.3f" .StepValueSec }} s</td>
+                </tr>
+                {{end}}
+            </table>
+        </div>
+
+        <div id="errors">
+            {{ range .Errors }}
+            <p>{{ . }}</p>
+            {{ end }}
+        </div>
+
+    </div>
+    <div class="cleaner"></div>
+</body>
+</html>
