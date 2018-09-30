@@ -2,14 +2,16 @@ package calculator
 
 import (
 	"fmt"
+	"github.com/asaskevich/govalidator"
 	"math"
 )
 
 type calculator struct {
-	bpm        float64
+	bpm        float64 `valid:"int,required"`
 	bars       int
 	resolution int
 	data       StepDataList
+	errors     []string
 }
 
 func NewCalculator() *calculator {
@@ -69,7 +71,12 @@ func (c *calculator) Bpm() float64 {
 }
 
 func (c *calculator) SetBpm(bpm float64) {
-	c.bpm = bpm
+	if govalidator.InRangeFloat64(bpm, MinBpm, MaxBpm) {
+		c.bpm = bpm
+	} else {
+		err := fmt.Sprintf("bpm must be between %v and %v", MinBpm, MaxBpm)
+		c.appendError(err)
+	}
 }
 
 func (c *calculator) Bars() int {
@@ -77,7 +84,12 @@ func (c *calculator) Bars() int {
 }
 
 func (c *calculator) SetBars(bars int) {
-	c.bars = bars
+	if govalidator.InRangeInt(bars, MinBars, MaxBars) {
+		c.bars = bars
+	} else {
+		err := fmt.Sprintf("bars must be between %v and %v", MinBars, MaxBars)
+		c.appendError(err)
+	}
 }
 
 func (c *calculator) Resolution() int {
@@ -85,7 +97,12 @@ func (c *calculator) Resolution() int {
 }
 
 func (c *calculator) SetResolution(resolution int) {
-	c.resolution = resolution
+	if govalidator.InRangeInt(resolution, MinResolution, MaxResolution) {
+		c.resolution = resolution
+	} else {
+		err := fmt.Sprintf("resolution must be between %v and %v", MinResolution, MaxResolution)
+		c.appendError(err)
+	}
 }
 
 func (c *calculator) Data() StepDataList {
@@ -94,4 +111,12 @@ func (c *calculator) Data() StepDataList {
 
 func (c *calculator) setData(data StepDataList) {
 	c.data = data
+}
+
+func (c *calculator) Errors() []string {
+	return c.errors
+}
+
+func (c *calculator) appendError(err string) {
+	c.errors = append(c.errors, err)
 }
