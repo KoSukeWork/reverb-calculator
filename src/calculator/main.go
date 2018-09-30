@@ -7,7 +7,7 @@ import (
 )
 
 type calculator struct {
-	bpm        float64 `valid:"int,required"`
+	bpm        float64
 	bars       int
 	resolution int
 	data       StepDataList
