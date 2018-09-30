@@ -1,4 +1,4 @@
-package structs
+package controller
 
 import "calculator"
 
@@ -7,5 +7,5 @@ type IndexPageData struct {
 	Bars       int
 	Resolution int
 	Errors     []string
-	StepData   calculator.StepDataList
+	Data       calculator.StepDataList
 }

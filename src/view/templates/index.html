@@ -25,7 +25,7 @@
                     <th class="val_ms">Milliseconds</th>
                     <th class="val_sec">Seconds</th>
                 </tr>
-                {{range .StepData}}
+                {{range .Data}}
                 <tr>
                     <td class="position">{{ .BarPosition }}</td>
                     <td class="val_ms">{{ printf "%.2f" .StepValueMs }} ms</td>

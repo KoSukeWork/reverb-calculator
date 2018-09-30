@@ -19,7 +19,9 @@ func main() {
 	c.SetBars(bars)
 	c.SetResolution(resolution)
 	c.Calculate()
+
 	printOutput(c.Bpm(), c.Data())
+	printErrors(c.Errors())
 }
 
 func parseFlags() {
@@ -29,9 +31,16 @@ func parseFlags() {
 	flag.Parse()
 }
 
-func printOutput(bpm float64, stepData calculator.StepDataList) {
+func printOutput(bpm float64, data calculator.StepDataList) {
 	fmt.Printf("%+7v %10.2f %v\n", "Tempo:", bpm, "BPM")
-	for _, step := range stepData {
+	for _, step := range data {
 		fmt.Printf("%+7v %10.2f ms %10.3f s \n", step.BarPosition, step.StepValueMs, step.StepValueSec)
 	}
+}
+
+func printErrors(errors []string) {
+	for _, error := range errors {
+		fmt.Printf("%v\n", error)
+	}
+
 }
